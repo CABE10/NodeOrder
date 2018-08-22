@@ -19,9 +19,32 @@ namespace NodeOrder
             public NodeTree Left;
             public int OrderId;
         }
-        static void InsertNode(Node node, int num)
+        static void InsertNode(ref Node node, int num)
         {
-
+            Node current = node;
+            while (current != null)
+            {
+                if(num > current.OrderId)
+                {
+                    if (current.Next == null)
+                    {
+                        current.Next = new Node() { OrderId = num };
+                        break;
+                    }
+                }
+                else if(num == current.OrderId)
+                {
+                    Node next = new Node() { OrderId = num, Next = current.Next };
+                    current.Next = next;
+                    break;
+                }
+                else if(num < current.OrderId)
+                { //I am less than the current node. I need to go before.
+                    node = new Node() { OrderId = num, Next = current };
+                    break;
+                }
+                current = current.Next;
+            }
         }
         static void InsertTree(NodeTree tree, int num)
         {
@@ -33,16 +56,16 @@ namespace NodeOrder
         {
             Console.WriteLine("Node Order:");
             Node node = new Node() { OrderId = 10 };
-            InsertNode(node, 9);
-            InsertNode(node, 11);
-            InsertNode(node, 12);
-            InsertNode(node, 8);
-            InsertNode(node, 13);
-            InsertNode(node, 1);
-            InsertNode(node, 40);
-            InsertNode(node, 8);
-            InsertNode(node, 100);
-            InsertNode(node, 2);
+            InsertNode(ref node, 9);
+            InsertNode(ref node, 11);
+            InsertNode(ref node, 12);
+            InsertNode(ref node, 8);
+            InsertNode(ref node, 13);
+            InsertNode(ref node, 1);
+            InsertNode(ref node, 40);
+            InsertNode(ref node, 8);
+            InsertNode(ref node, 100);
+            InsertNode(ref node, 2);
             PrintAllNodes(node);
             Console.WriteLine("\nTree Order:");
             NodeTree tree = new NodeTree() { OrderId = 10 };
