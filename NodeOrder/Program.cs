@@ -48,7 +48,28 @@ namespace NodeOrder
         }
         static void InsertTree(NodeTree tree, int num)
         {
-
+            if(num < tree.OrderId)
+            {
+                if(tree.Left != null)
+                {
+                    InsertTree(tree.Left, num);
+                }
+                else
+                {
+                    tree.Left = new NodeTree() { OrderId = num };
+                }
+            }
+            else if (num > tree.OrderId)
+            {
+                if(tree.Right != null)
+                {
+                    InsertTree(tree.Right, num);
+                }
+                else
+                {
+                    tree.Right = new NodeTree() { OrderId = num };
+                }
+            }
         }
 
 
@@ -76,7 +97,7 @@ namespace NodeOrder
             InsertTree(tree, 30);
             InsertTree(tree, 100);
             InsertTree(tree, 1);
-            PrintTree(tree, "");
+            PrintTree(tree, ""); //looks odd, but it works.
 
             Console.ReadLine();
         }
